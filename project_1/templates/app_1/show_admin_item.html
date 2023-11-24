@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1 align="center"><b>Админка</b></h1>
+
+{% if user.is_authenticated %}
+    {% if mebels %}
+    <div class="row justify-content-center">
+        <div class="col-auto">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Дата</th>
+                    <th scope="col">Ссылка</th>
+                    <th scope="col">Цена</th>
+                    <th scope="col">Описание</th>
+                    <th scope="col">Редактирование</th>
+                    <th scope="col">Удаление</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for mebel in mebels %}
+                <tr>
+                    <td><b>{{mebel.id}}</b></td>
+                    <td>{{mebel.parse_datetime}}</td>
+                    <th scope="row"><a href="{{mebel.link}}">Прямая ссылка</a></th>
+                    <td>{{mebel.price}}</td>
+                    <td>{{mebel.description}}</td>
+                    <td>
+                        <form
+                                action="{% url 'update_item' mebel.id %}"
+                                method="post">
+                            {% csrf_token %}
+                            {{form.as_p}}
+                            <button type="submit" class="btn btn-success">Сохранить</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="{% url 'delete_item' mebel.id %}">
+                            <button type="submit" class="btn btn-danger">Удалить</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+        </table>
+        </div>
+    </div>
+    {% else %}
+        <h2>К сожалению мебели ещё нет</h2>
+    {% endif %}
+{% else %}
+    <p style="text-align: center">
+        <b>Вы не авторизованы</b>
+        <a href="{% url 'login' %}">Войти</a>
+        <a href="{% url 'register' %}">Регистрация</a>
+    </p>
+{% endif %}
+
+{% endblock %}

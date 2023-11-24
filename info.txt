@@ -1,0 +1,35 @@
+django-admin startproject project_1
+python .\manage.py startapp app_1
+python .\manage.py runserver 8000
+
+python .\manage.py makemigrations app_1
+python .\manage.py migrate
+
+python manage.py createsuperuser
+
+
+
+
+
+
+
+>>> from food.models import *
+>>> Category.objects.create(name='burgery-iz-govyadiny')
+
+
+
+
+
+pip install django
+django-admin startproject drf
+python .\manage.py startapp pc
+python .\manage.py makemigrations cars
+python .\manage.py migrate
+python .\manage.py createsuperuser
+pip install djangorestframework
+django-admin --version
+pip install --upgrade django==4.1.10
+# pip install django-rest-swagger
+pip install -U drf-yasg
+pip install -U drf-yasg[validation]
+pip install django-filter
